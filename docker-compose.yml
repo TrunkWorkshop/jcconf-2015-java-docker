@@ -1,0 +1,19 @@
+main:
+  container_name: jcconf_main
+  image: trunk/groovy_gradle
+  command: "/bin/bash -l"
+  links:
+    - client
+  volumes:
+    - ./:/jcconf_main
+
+  working_dir: /jcconf_main
+
+
+client:
+  container_name: jcconf_client
+  image: vvoyer/docker-selenium-firefox-chrome
+
+  ports:
+    - "4444:4444"
+    - "5999:5999"
