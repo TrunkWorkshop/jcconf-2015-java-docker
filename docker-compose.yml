@@ -1,7 +1,7 @@
 main:
   container_name: jcconf_main
   image: trunk/groovy_gradle
-  command: "/bin/bash -l"
+  command: "/bin/bash -l -c 'gradle firefoxTest'"
   links:
     - client
   volumes:
