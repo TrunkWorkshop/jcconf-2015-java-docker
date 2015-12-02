@@ -28,8 +28,16 @@ environments {
 	firefox {
 		driver = {
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox()
-			URL url = new URL("http://$System.env.JCCONF_CLIENT_PORT_4444_TCP_ADDR:$System.env.JCCONF_CLIENT_PORT_4444_TCP_PORT/wd/hub")
-			new RemoteWebDriver(url, capabilities)
+			def ip = System.env.JCCONF_CLIENT_PORT_4444_TCP_ADDR ?: 'localhost'
+			def port = System.env.JCCONF_CLIENT_PORT_4444_TCP_PORT ?: '4444'
+
+			if(ip == 'localhost') {
+				new FirefoxDriver()
+			} else {
+				URL url = new URL("http://$ip:$port/wd/hub")
+				new RemoteWebDriver(url, capabilities)
+			}
+
 		}
 
 	}

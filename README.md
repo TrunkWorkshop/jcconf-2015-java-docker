@@ -19,6 +19,12 @@ docker-compose up main
 docker environment images
 -------------------------
 
+### build env images
+
+```
+docker build -t trunk/groovy_gradle docker/groovy_gradle/
+```
+
 ### docker hub
 
 [trunk/groovy_gradle](https://hub.docker.com/r/trunk/groovy_gradle/)
