@@ -1,7 +1,7 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 ext {
-  drivers = ["firefox", "chrome", "phantomJs"]
+  drivers = ["firefox", "chrome", "remoteFirefox", "remoteChrome"]
 
   ext {
     groovyVersion = '2.4.5'
@@ -37,7 +37,7 @@ drivers.each { driver ->
       junitXml.destination = file("$buildDir/test-results/$name")
     }
 
-    outputs.upToDateWhen { false }  // Always run tests
+    outputs.upToDateWhen { false }
 
     systemProperty "geb.build.reportsDir", reporting.file("$name/geb")
     systemProperty "geb.env", driver

@@ -12,6 +12,13 @@ waiting {
 	timeout = 2
 }
 
+def host = System.env.JCCONF_CLIENT_PORT_4444_TCP_ADDR ?: SELENIUM_HOST ?: '192.168.99.100'
+def port = System.env.JCCONF_CLIENT_PORT_4444_TCP_PORT ?: SELENIUM_PORT ?: '4444'
+URL url = new URL("http://$host:$port/wd/hub")
+
+
+println url
+
 environments {
 
 	chrome {
@@ -19,17 +26,18 @@ environments {
 	}
 
 	firefox {
-		driver = {
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox()
-			def ip = System.env.JCCONF_CLIENT_PORT_4444_TCP_ADDR ?: 'localhost'
-			def port = System.env.JCCONF_CLIENT_PORT_4444_TCP_PORT ?: '4444'
+		driver = { new FirefoxDriver() }
+	}
 
-			if(ip == 'localhost') {
-				new FirefoxDriver()
-			} else {
-				URL url = new URL("http://$ip:$port/wd/hub")
-				new RemoteWebDriver(url, capabilities)
-			}
+	remoteFirefox {
+		driver = {
+			new RemoteWebDriver(url, DesiredCapabilities.firefox())
+		}
+	}
+
+	remoteChrome {
+		driver = {
+			new RemoteWebDriver(url, DesiredCapabilities.chrome())
 		}
 	}
 }
